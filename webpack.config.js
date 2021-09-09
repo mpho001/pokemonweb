@@ -5,7 +5,8 @@ module.exports = {
   devServer: {
     publicPath: "/",
     contentBase: "./src",
-    hot: true
+    hot: true,
+    historyApiFallback: true
 },
   entry: './src/index.tsx',
   mode: "development",
