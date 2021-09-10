@@ -7,35 +7,32 @@ import { createBrowserHistory } from "history";
 import { PokemonBag } from './features/pokemonBag/PokemonBag';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import { PokemonDetails } from './features/pokemonDetails/PokemonDetails';
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <div className="App-header">
-          <ToggleButtonGroup>
-            <ToggleButton>
-              <Link to="/" style={{ textDecoration: 'none' }}>All</Link>
-            </ToggleButton>
-            <ToggleButton>
-              <Link to="/bag" style={{ textDecoration: 'none' }}>Bag</Link>
-            </ToggleButton>
-          </ToggleButtonGroup>
-
-
-
-          <Switch>
-            <Route exact path="/">
-              <PokemonList />
-            </Route>
-            <Route path="/bag">
-              <PokemonBag />
-            </Route>
-          </Switch>
-        </div>
-      </div>
-    </BrowserRouter>
+    <div >
+        {/* <ToggleButtonGroup>
+          <ToggleButton value="all">
+            <Link to="/" style={{ textDecoration: 'none' }}>All</Link>
+          </ToggleButton>
+          <ToggleButton value="bag">
+            <Link to="/bag" style={{ textDecoration: 'none' }}>Bag</Link>
+          </ToggleButton>
+        </ToggleButtonGroup> */}
+        <Switch>
+          <Route exact path="/">
+            <PokemonList />
+          </Route>
+          <Route path="/bag">
+            <Counter />
+          </Route>
+          <Route path="/details/:name" component={PokemonDetails}>
+            {/* <PokemonDetails pokemon={{}} /> */}
+          </Route>
+        </Switch>
+    </div>
   )
 }
 

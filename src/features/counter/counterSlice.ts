@@ -56,6 +56,8 @@ export const counterSlice = createSlice({
       .addCase(incrementAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.value += action.payload;
+        console.log('count');
+        console.log(action);
       });
   },
 });
