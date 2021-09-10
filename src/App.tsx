@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import { PokemonList } from './features/pokemonList/PokemonList';
 import { PokemonDetails } from './features/pokemonDetails/PokemonDetails';
-import { PokemonBag } from './features/pokemonBag/PokemonBag';
 
 
 function App() {
@@ -13,10 +12,7 @@ function App() {
         <Route exact path="/">
           <PokemonList />
         </Route>
-        <Route path="/bag">
-          <PokemonBag />
-        </Route>
-        <Route path="/details/:name" component={PokemonDetails} />
+        <Route path="/details/:id" component={PokemonDetails} />
       </Switch>
     </div>
   )

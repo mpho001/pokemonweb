@@ -1,6 +1,15 @@
 import React from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
+export type Position = {
+  lat: number,
+  lng: number
+}
+
+type MapProps = {
+  positions: Position[]
+}
+
 const containerStyle = {
   width: '700px',
   height: '500px'
@@ -11,18 +20,7 @@ const center = {
   lng: -117.1611
 };
 
-const positions = [
-  {
-    lat: 32.7157,
-    lng: -117.1611
-  },
-  {
-    lat: 32.639954,
-    lng: -117.106705
-  }
-]
-
-function GoogleMaps() {
+export const GoogleMaps = ({ positions }: MapProps) => {
   return (
     <LoadScript
       googleMapsApiKey={`${process.env.GOOGLE_MAPS_API_KEY}`}
@@ -41,5 +39,3 @@ function GoogleMaps() {
     </LoadScript>
   )
 }
-
-export default React.memo(GoogleMaps)

@@ -4,8 +4,7 @@ import pokemonListReducer, {
 
 describe('pokemon list reducer', () => {
   const initialState: PokemonListState = {
-    pokemon: [],
-    status: 'idle'
+    pokemon: []
   };
   it('should handle initial state', () => {
     expect(pokemonListReducer(undefined, { type: 'unknown' })).toEqual({

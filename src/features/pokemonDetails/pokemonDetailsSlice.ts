@@ -9,12 +9,10 @@ export interface Pokemon {
 }
 
 export interface PokemonDetails {
-  status: 'idle' | 'loading' | 'failed';
   locations: string[]
 }
 
 const initialState: PokemonDetails = {
-  status: 'idle',
   locations: []
 };
 
@@ -38,11 +36,7 @@ export const pokemonDetailsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchLocations.pending, (state) => {
-        state.status = 'loading';
-      })
       .addCase(fetchLocations.fulfilled, (state, { payload }) => {
-        state.status = 'idle';
         state.locations = [ ...payload ];
       });
   },

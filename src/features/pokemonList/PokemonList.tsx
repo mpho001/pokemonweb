@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './PokemonList.module.css';
-import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchPokemon, selectPokemon } from './pokemonListSlice';
 import { useEffect } from 'react';
@@ -12,28 +11,53 @@ export function PokemonList() {
   const allPokemon = useAppSelector(selectPokemon);
   const dispatch = useAppDispatch();
 
-  const [query, setQuery] = React.useState('');
   const [pokemon, setPokemon] = React.useState(allPokemon);
+  const [toggle, setToggle] = React.useState('all');
+  const [query, setQuery] = React.useState('');
 
-  // runs on page load
+  // runs on page load and on changes
   useEffect(() => {
-    dispatch(fetchPokemon());
-  }, [dispatch]);
+    if (pokemon.length === 0 && allPokemon.length === 0) {
+      dispatch(fetchPokemon());
+    } else if (pokemon.length === 0 && query === '' && allPokemon.length > 0) {
+      setPokemon(allPokemon);
+    }
+  }, [dispatch, allPokemon, pokemon.length, query]);
 
   const history = useHistory();
 
-  const handleOnClickPokemon = (name: string, singlePokemon: any) => {
+  const handleOnClickPokemon = (id: number, singlePokemon: any) => {
     history.push(
-        `details/${name}`, singlePokemon
+        `details/${id}`, singlePokemon
     )
   };
 
+  // updates query when user types
   const handleKeyPress = (event: any) => {
     setQuery(event.target.value);
   }
 
+  const handleToggle = (val: string) => {
+    switch (val) {
+      case 'all':
+        setPokemon(allPokemon);
+        setToggle('all');
+        break;
+      case 'bag':
+        setPokemon(allPokemon.slice(0,5));
+        setToggle('bag');
+        break;
+      default:
+        setPokemon(allPokemon);
+        setToggle('all');
+        break;
+    }
+  }
+
+  // filter pokemon based on user's search
   const filterPokemon = () => {
-    const temp = allPokemon.filter((value) => {
+    // pokemon would be bag pokemon
+    const temp = (toggle === 'all' ? allPokemon : pokemon).filter((value) => {
       if (query === '') {
         return true;
       } else {
@@ -47,12 +71,12 @@ export function PokemonList() {
   return (
     <div>
       <div className={styles.toggleGroup}>
-        <ToggleButtonGroup>
-          <ToggleButton value="all">
-            <Link to="/" style={{ textDecoration: 'none' }}>All</Link>
+        <ToggleButtonGroup exclusive>
+          <ToggleButton value="all" onClick={() => handleToggle("all")}>
+            All
           </ToggleButton>
-          <ToggleButton value="bag">
-            <Link to="/bag" style={{ textDecoration: 'none' }}>Bag</Link>
+          <ToggleButton value="bag" onClick={() => handleToggle("bag")}>
+            Bag
           </ToggleButton>
         </ToggleButtonGroup>
         <div className={styles.form}>
@@ -76,7 +100,7 @@ export function PokemonList() {
           <div className={styles.item} key={i}>
             <button
               className={styles.button}
-              onClick={() => handleOnClickPokemon(value.data.name, value.data)}
+              onClick={() => handleOnClickPokemon(value.data.id, value.data)}
             >
                 <img src={value.data.sprites.front_default} alt="" />
             </button>

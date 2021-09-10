@@ -4,17 +4,29 @@ import { useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { fetchLocations, selectLocations } from './pokemonDetailsSlice';
-import GoogleMaps from '../googleMaps/GoogleMaps';
+import { GoogleMaps } from '../googleMaps/GoogleMaps';
 
 
 export const PokemonDetails = () => {
-  const locations = useAppSelector(selectLocations);
+  // const locations = useAppSelector(selectLocations);
   const location = useLocation();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     // dispatch(fetchLocations(location.state.id))
+    // pass positions to google maps component
   })
+
+  const positions = [
+    {
+      lat: 32.7157,
+      lng: -117.1611
+    },
+    {
+      lat: 32.639954,
+      lng: -117.106705
+    }
+  ]
 
   return (
     <div>
@@ -44,7 +56,7 @@ export const PokemonDetails = () => {
           </ul>
         </div>
         <div className={styles.itemRight}>
-          <GoogleMaps />
+          <GoogleMaps positions={positions} />
         </div>
       </div>
     </div>
