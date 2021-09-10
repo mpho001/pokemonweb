@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 70px;
+}
+
+.toggleGroup {
+    text-align: center;
+    margin-top: 40px;
+}
+  
+.item {
+    margin: 30px;
+}
+
+.button {
+    height: 150px;
+    width: 150px;
+}
