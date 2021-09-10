@@ -8,12 +8,12 @@ import { GoogleMaps } from '../googleMaps/GoogleMaps';
 
 
 export const PokemonDetails = () => {
-  // const locations = useAppSelector(selectLocations);
+  const locations = useAppSelector(selectLocations);
   const location = useLocation();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // dispatch(fetchLocations(location.state.id))
+    dispatch(fetchLocations(location.state.id))
     // pass positions to google maps component
   })
 

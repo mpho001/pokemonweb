@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './PokemonList.module.css';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchPokemon, selectPokemon } from './pokemonListSlice';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import { useSelector, useDispatch } from 'react-redux';
 
 export function PokemonList() {
-  const allPokemon = useAppSelector(selectPokemon);
-  const dispatch = useAppDispatch();
+  const allPokemon = useSelector(selectPokemon);
+  const dispatch = useDispatch();
 
   const [pokemon, setPokemon] = React.useState(allPokemon);
   const [toggle, setToggle] = React.useState('all');

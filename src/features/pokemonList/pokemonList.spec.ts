@@ -8,8 +8,7 @@ describe('pokemon list reducer', () => {
   };
   it('should handle initial state', () => {
     expect(pokemonListReducer(undefined, { type: 'unknown' })).toEqual({
-      pokemon: [],
-      status: 'idle'
+      pokemon: []
     });
   });
   // test fetchPokemon
