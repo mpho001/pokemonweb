@@ -1,19 +1,22 @@
 /// import React, { useState } from 'react';
 
-// import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import styles from '../counter/Counter.module.css';
+import styles from '../pokemonList/PokemonList.module.css';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import { Link } from 'react-router-dom';
 
 export function PokemonBag() {
-//   const count = useAppSelector(selectCount);
-//   const dispatch = useAppDispatch();
-//   const [incrementAmount, setIncrementAmount] = useState('2');
-
-//   const incrementValue = Number(incrementAmount) || 0;
-
   return (
     <div>
-      <div className={styles.row}>
-        <span className={styles.value}>Bag</span>
+      <div className={styles.toggleGroup}>
+        <ToggleButtonGroup>
+          <ToggleButton value="all">
+            <Link to="/" style={{ textDecoration: 'none' }}>All</Link>
+          </ToggleButton>
+          <ToggleButton value="bag">
+            <Link to="/bag" style={{ textDecoration: 'none' }}>Bag</Link>
+          </ToggleButton>
+        </ToggleButtonGroup>
       </div>
     </div>
   );

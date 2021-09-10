@@ -80,7 +80,7 @@ export function PokemonList() {
             >
                 <img src={value.data.sprites.front_default} alt="" />
             </button>
-            <div>{value.data.name}</div>
+            <div className={styles.text}>{value.data.name}</div>
           </div>
         ))}
       </div>
