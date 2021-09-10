@@ -15,13 +15,11 @@ export interface PokemonListState {
   status: 'idle' | 'loading' | 'failed';
   // pokemon: Pokemon[];
   pokemon: any[];
-  value: number;
 }
 
 const initialState: PokemonListState = {
   status: 'idle',
   pokemon: [],
-  value: 0
 };
 
 export function fetchPokemonCall() {
@@ -87,6 +85,8 @@ export const fetchPokemon = createAsyncThunk(
       pokemonWithData.push(pokemonFull);
     }
 
+    console.log('dispatching');
+
     return pokemonWithData;
   }
 );
@@ -105,7 +105,6 @@ export const pokemonListSlice = createSlice({
       })
       .addCase(fetchPokemon.fulfilled, (state, { payload }) => {
         state.status = 'idle';
-        state.value = 2;
         state.pokemon = [ ...payload ];
       });
   },

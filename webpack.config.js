@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   devServer: {
@@ -39,6 +40,7 @@ module.exports = {
         favicon: './public/favicon.ico',
         manifest: "./public/manifest.json"
     }),
+    new Dotenv()
 ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.css'],

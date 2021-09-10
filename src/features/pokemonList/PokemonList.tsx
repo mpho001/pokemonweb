@@ -18,11 +18,7 @@ export function PokemonList() {
   // runs on page load
   useEffect(() => {
     dispatch(fetchPokemon());
-    
-    if (pokemon.length === 0 && allPokemon.length !== 0) {
-      setPokemon(allPokemon);
-    }
-  }, [allPokemon, dispatch, pokemon]);
+  }, [dispatch]);
 
   const history = useHistory();
 

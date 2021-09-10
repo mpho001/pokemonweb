@@ -1,22 +1,30 @@
 import React from 'react';
 import styles from './PokemonDetails.module.css'
 import { useLocation } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
+import { fetchLocations, selectLocations } from './pokemonDetailsSlice';
+import GoogleMaps from '../googleMaps/GoogleMaps';
 
 
 export const PokemonDetails = () => {
+  const locations = useAppSelector(selectLocations);
   const location = useLocation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log('location');
-    console.log(location.state);
+    // dispatch(fetchLocations(location.state.id))
   })
 
   return (
     <div>
       <div className={styles.container}>
         <div className={styles.item}>
-          <img className={styles.image} src={location.state.sprites.other["official-artwork"].front_default} alt="" />
+          <img
+            className={styles.image}
+            src={location.state.sprites.other["official-artwork"].front_default}
+            alt=""
+          />
           <h3 className={styles.imageText}>{location.state.name}</h3>
           <h4>{`Height: ${location.state.height}`}</h4>
           <h4>{`Weight: ${location.state.weight}`}</h4>
@@ -29,11 +37,14 @@ export const PokemonDetails = () => {
           <h4>Abilities</h4>
           <ul>
             {
-              location.state.abilities.map((ability: any) => (
-                <li>{ability.ability.name}</li>
+              location.state.abilities.map((ability: any, i: any) => (
+                <li key={i}>{ability.ability.name}</li>
               ))
             }
           </ul>
+        </div>
+        <div className={styles.itemRight}>
+          <GoogleMaps />
         </div>
       </div>
     </div>
