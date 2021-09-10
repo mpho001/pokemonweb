@@ -20,6 +20,8 @@
   height: 300px;
   width: 300px;
   border: solid;
+  border-radius: 25px;
+  border-width: 2px;
 }
 
 .imageText {

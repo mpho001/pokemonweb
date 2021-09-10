@@ -7,6 +7,9 @@ export const store = configureStore({
     counter: counterReducer,
     pokemonList: pokemonListReducer
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+}),
 });
 
 export type AppDispatch = typeof store.dispatch;

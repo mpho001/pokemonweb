@@ -1,6 +1,4 @@
 import React from 'react';
-
-// import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import styles from './PokemonList.module.css';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -11,20 +9,44 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 export function PokemonList() {
-  const pokemon = useAppSelector(selectPokemon);
+  const allPokemon = useAppSelector(selectPokemon);
   const dispatch = useAppDispatch();
 
+  const [query, setQuery] = React.useState('');
+  const [pokemon, setPokemon] = React.useState(allPokemon);
+
+  // runs on page load
   useEffect(() => {
-      dispatch(fetchPokemon());
-  }, [dispatch]);
+    dispatch(fetchPokemon());
+    
+    if (pokemon.length === 0 && allPokemon.length !== 0) {
+      setPokemon(allPokemon);
+    }
+  }, [allPokemon, dispatch, pokemon]);
 
   const history = useHistory();
 
-  const handleOnClick = (name: string, pokemon: any) => {
+  const handleOnClickPokemon = (name: string, singlePokemon: any) => {
     history.push(
-        `details/${name}`, pokemon
+        `details/${name}`, singlePokemon
     )
   };
+
+  const handleKeyPress = (event: any) => {
+    setQuery(event.target.value);
+  }
+
+  const filterPokemon = () => {
+    const temp = allPokemon.filter((value) => {
+      if (query === '') {
+        return true;
+      } else {
+        return value.data.name.startsWith(query);
+      }
+    });
+
+    setPokemon(temp);
+  }
 
   return (
     <div>
@@ -37,11 +59,29 @@ export function PokemonList() {
             <Link to="/bag" style={{ textDecoration: 'none' }}>Bag</Link>
           </ToggleButton>
         </ToggleButtonGroup>
-      </div>  
+        <div className={styles.form}>
+          <input
+            className={styles.input}
+            type="text"
+            id="header-search"
+            placeholder="Search"
+            name="s"
+            value={query}
+            onChange={(e) => handleKeyPress(e)}
+          />
+          <button onClick={() => filterPokemon()}>
+            search
+          </button>
+          </div>
+      </div>
+
       <div className={styles.container}>
-        {pokemon.map((value) => (
-          <div className={styles.item}>
-            <button className={styles.button} onClick={() => handleOnClick(value.data.name, value.data)}>
+        {pokemon.map((value, i) => (
+          <div className={styles.item} key={i}>
+            <button
+              className={styles.button}
+              onClick={() => handleOnClickPokemon(value.data.name, value.data)}
+            >
                 <img src={value.data.sprites.front_default} alt="" />
             </button>
             <div>{value.data.name}</div>
